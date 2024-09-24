@@ -145,7 +145,7 @@ Enclave_Security_Link_Flags := -Wl,-z,relro,-z,now,-z,noexecstack
 MCL_DIR = ./Enclave/mcl
 MCL_INC=$(MCL_DIR)/include
 MCL_LINK_LIBS = $(MCL_DIR)/lib/libmclbn384_256.a $(MCL_DIR)/lib/libmcl.a 
-MCL_BLS12_381_PAIRING_CFLAGS := -std=c++03 -O3 -g -fno-threadsafe-statics -fno-exceptions -fno-rtti \
+MCL_BLS12_381_PAIRING_CFLAGS := -std=c++03 -O3 -g -fno-threadsafe-statics -fno-rtti \
 	-DXBYAK_NO_EXCEPTION -DMCL_SIZEOF_UNIT=8 -DMCL_MAX_BIT_SIZE=384 -DCYBOZU_DONT_USE_STRING \
 	-DCYBOZU_DONT_USE_EXCEPTION -DNDEBUG -DMCL_BINT_ASM=0 -DMCL_MSM=0 -I$(MCL_INC)
 MCL_Link_Flags := $(MCL_BLS12_381_PAIRING_CFLAGS) $(MCL_LINK_LIBS)
