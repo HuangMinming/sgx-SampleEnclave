@@ -195,7 +195,7 @@ int SGX_CDECL main(int argc, char *argv[])
         getchar();
         return -1; 
     }
-    printf("main ok0\n");
+    printf("main ok0, global_eid = %d\n", global_eid);
     /* Utilize edger8r attributes */
     edger8r_array_attributes();
     printf("main ok1\n");
