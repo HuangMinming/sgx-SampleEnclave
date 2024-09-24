@@ -65,6 +65,7 @@ void edger8r_function_attributes(void);
 void ecall_libc_functions(void);
 void ecall_libcxx_functions(void);
 void ecall_thread_functions(void);
+void print_error_message(sgx_status_t ret);
 
 #if defined(__cplusplus)
 }
