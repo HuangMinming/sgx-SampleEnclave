@@ -196,6 +196,18 @@ int SGX_CDECL main(int argc, char *argv[])
         return -1; 
     }
     printf("main ok0, global_eid = %d\n", global_eid);
+
+    sgx_status_t ret = SGX_ERROR_UNEXPECTED;
+
+    /* user_check */
+    int arr1[4] = {0, 1, 2, 3};
+    ret = ecall_array_user_check(global_eid, arr1);
+    if (ret != SGX_SUCCESS) {
+        print_error_message(ret);
+        return -1;
+    }
+
+        
     /* Utilize edger8r attributes */
     edger8r_array_attributes();
     printf("main ok1\n");

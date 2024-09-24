@@ -44,11 +44,7 @@ void edger8r_array_attributes(void)
     int arr1[4] = {0, 1, 2, 3};
     ret = ecall_array_user_check(global_eid, arr1);
     if (ret != SGX_SUCCESS)
-    {
-        print_error_message(ret);
         abort();
-    }
-        
 
     /* make sure arr1 is changed */
     for (int i = 0; i < 4; i++)
@@ -58,10 +54,7 @@ void edger8r_array_attributes(void)
     int arr2[4] = {0, 1, 2, 3};
     ret = ecall_array_in(global_eid, arr2);
     if (ret != SGX_SUCCESS)
-    {
-        print_error_message(ret);
         abort();
-    }
     
     /* arr2 is not changed */
     for (int i = 0; i < 4; i++)
@@ -71,10 +64,7 @@ void edger8r_array_attributes(void)
     int arr3[4] = {0, 1, 2, 3};
     ret = ecall_array_out(global_eid, arr3);
     if (ret != SGX_SUCCESS)
-    {
-        print_error_message(ret);
         abort();
-    }
     
     /* arr3 is changed */
     for (int i = 0; i < 4; i++)
@@ -84,10 +74,7 @@ void edger8r_array_attributes(void)
     int arr4[4] = {0, 1, 2, 3};
     ret = ecall_array_in_out(global_eid, arr4);
     if (ret != SGX_SUCCESS)
-    {
-        print_error_message(ret);
         abort();
-    }
     
     /* arr4 is changed */
     for (int i = 0; i < 4; i++)
@@ -97,10 +84,7 @@ void edger8r_array_attributes(void)
     array_t arr5 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     ret = ecall_array_isary(global_eid, arr5);
     if (ret != SGX_SUCCESS)
-    {
-        print_error_message(ret);
         abort();
-    }
     
     /* arr5 is changed */
     for (int i = 0; i < 10; i++)
