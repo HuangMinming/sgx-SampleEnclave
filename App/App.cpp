@@ -195,10 +195,12 @@ int SGX_CDECL main(int argc, char *argv[])
         getchar();
         return -1; 
     }
- 
+    printf("main ok0\n");
     /* Utilize edger8r attributes */
     edger8r_array_attributes();
+    printf("main ok1\n");
     edger8r_pointer_attributes();
+    printf("main ok2\n");
     edger8r_type_attributes();
     edger8r_function_attributes();
     
