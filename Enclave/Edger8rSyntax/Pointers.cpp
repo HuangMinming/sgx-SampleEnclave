@@ -61,10 +61,10 @@ int pairing_main()
 
 	int iss = 100;
     // pfc.random(ss);    // TA's super-secret 
-	char s_p384_china[] = "fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffec3";
-	flash p384_china;
-	cinstr(p384_china, s_p384_china);
-	ss = Big(p384_china);
+	char ss_str[] = "ffffffffffffffffffffffffffffffffffffffffec3";
+	flash ss_flash;
+	cinstr(ss_flash, ss_str);
+	ss = Big(ss_flash);
 
 
     printf("Mapping Server ID to point\n");
@@ -85,8 +85,16 @@ int pairing_main()
 	
     // pfc.random(a);  // Alice's random number
     // pfc.random(s);   // Server's random number
-	a = new Big(200);
-	s = new Big(300);
+    char a_str[] = "ffffffffffffffffffffffffffffffffffffffffec5";
+	flash a_flash;
+	cinstr(a_flash, a_str);
+	a = Big(a_flash);
+
+    char s_str[] = "ffffffffffffffffffffffffffffffffffffffffec7";
+	flash s_flash;
+	cinstr(s_flash, s_str);
+	s = Big(s_flash);
+
 
 	res=pfc.pairing(Server,sA);
 
