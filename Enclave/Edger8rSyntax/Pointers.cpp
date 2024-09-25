@@ -38,6 +38,11 @@
 #include "Enclave_t.h"
 #include "sgx_lfence.h"
 #include "sgx_trts.h"
+
+#define MR_PAIRING_BLS    // AES-256 security
+#define AES_SECURITY 256
+
+#include "pairing_3.h"
 #include "miracl.h"
 
 int g_err = 0;
@@ -46,9 +51,88 @@ int g_err = 0;
 
 int pairing_main()
 {
-	
+	PFC pfc(AES_SECURITY);  // initialise pairing-friendly curve
 
-	return 0;
+	time_t seed;
+	G1 Alice,Bob,sA,sB;
+    G2 B6,Server,sS;
+	GT res,sp,ap,bp;
+	Big ss,s,a,b;
+
+    time(&seed);
+    irand((long)seed);
+
+    pfc.random(ss);    // TA's super-secret 
+
+    printf("Mapping Server ID to point\n");
+	pfc.hash_and_map(Server,(char *)"Server");
+
+    printf("Mapping Alice & Bob ID's to points\n");
+    pfc.hash_and_map(Alice,(char *)"Alice");
+    pfc.hash_and_map(Bob,(char *)"Robert");
+
+    printf("Alice, Bob and the Server visit Trusted Authority\n"); 
+
+    sS=pfc.mult(Server,ss); 
+	sA=pfc.mult(Alice,ss);
+    sB=pfc.mult(Bob,ss); 
+
+    printf("Alice and Server Key Exchange\n");
+
+	
+    pfc.random(a);  // Alice's random number
+    pfc.random(s);   // Server's random number
+
+	res=pfc.pairing(Server,sA);
+
+	if (!pfc.member(res))
+    {
+        printf("Wrong group order - aborting\n");
+        exit(0);
+    }
+	
+	ap=pfc.power(res,a);
+
+	res=pfc.pairing(sS,Alice);
+	
+   	if (!pfc.member(res))
+    {
+        printf("Wrong group order - aborting\n");
+        exit(0);
+    }
+
+	sp=pfc.power(res,s);
+
+    printf("Alice  Key= %s\n", pfc.hash_to_aes_key(pfc.power(sp,a)));
+    printf("Server Key= %s\n",< pfc.hash_to_aes_key(pfc.power(ap,s)));
+
+    printf("Bob and Server Key Exchange\n");
+
+    pfc.random(b);   // Bob's random number
+    pfc.random(s);   // Server's random number
+
+	res=pfc.pairing(Server,sB);
+    if (!pfc.member(res))
+    {
+        printf("Wrong group order - aborting\n");
+        exit(0);
+    }
+    bp=pfc.power(res,b);
+
+	res=pfc.pairing(sS,Bob);
+    if (!pfc.member(res))
+    {
+        printf("Wrong group order - aborting\n");
+        exit(0);
+    }
+
+    sp=pfc.power(res,s);
+
+    printf("Bob's  Key= %s\n", pfc.hash_to_aes_key(pfc.power(sp,b)));
+    printf("Server Key= %s\n", pfc.hash_to_aes_key(pfc.power(bp,s)));
+
+    return 0;
+
 
 }
 
