@@ -53,16 +53,15 @@ int pairing_main()
 {
 	PFC pfc(AES_SECURITY);  // initialise pairing-friendly curve
 
-	time_t seed;
 	G1 Alice,Bob,sA,sB;
     G2 B6,Server,sS;
 	GT res,sp,ap,bp;
 	Big ss,s,a,b;
 
-    time(&seed);
-    irand((long)seed);
 
-    pfc.random(ss);    // TA's super-secret 
+
+    // pfc.random(ss);    // TA's super-secret 
+	ss = new Big(100);
 
     printf("Mapping Server ID to point\n");
 	pfc.hash_and_map(Server,(char *)"Server");
@@ -80,15 +79,17 @@ int pairing_main()
     printf("Alice and Server Key Exchange\n");
 
 	
-    pfc.random(a);  // Alice's random number
-    pfc.random(s);   // Server's random number
+    // pfc.random(a);  // Alice's random number
+    // pfc.random(s);   // Server's random number
+	a = new Big(200);
+	s = new Big(300);
 
 	res=pfc.pairing(Server,sA);
 
 	if (!pfc.member(res))
     {
         printf("Wrong group order - aborting\n");
-        exit(0);
+        return 0;
     }
 	
 	ap=pfc.power(res,a);
@@ -98,7 +99,7 @@ int pairing_main()
    	if (!pfc.member(res))
     {
         printf("Wrong group order - aborting\n");
-        exit(0);
+        return 0;
     }
 
 	sp=pfc.power(res,s);
@@ -115,7 +116,7 @@ int pairing_main()
     if (!pfc.member(res))
     {
         printf("Wrong group order - aborting\n");
-        exit(0);
+        return 0;
     }
     bp=pfc.power(res,b);
 
@@ -123,7 +124,7 @@ int pairing_main()
     if (!pfc.member(res))
     {
         printf("Wrong group order - aborting\n");
-        exit(0);
+        return 0;
     }
 
     sp=pfc.power(res,s);
