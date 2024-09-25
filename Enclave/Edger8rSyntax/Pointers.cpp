@@ -61,7 +61,7 @@ int pairing_main()
 
 	int iss = 100;
     // pfc.random(ss);    // TA's super-secret 
-	Bis ss = new Big(iss);
+	Big ss = new Big(iss);
 
     printf("Mapping Server ID to point\n");
 	pfc.hash_and_map(Server,(char *)"Server");
