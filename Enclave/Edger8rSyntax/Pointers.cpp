@@ -42,7 +42,7 @@
 #define MR_PAIRING_BLS    // AES-256 security
 #define AES_SECURITY 256
 
-#include "pairing_3.h"
+// #include "pairing_3.h"
 #include "miracl.h"
 
 int g_err = 0;
