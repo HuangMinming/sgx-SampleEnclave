@@ -38,7 +38,7 @@
 #include "Enclave_t.h"
 #include "sgx_lfence.h"
 #include "sgx_trts.h"
-#include <miracl.h>
+#include "miracl.h"
 
 int g_err = 0;
 #define ASSERT(x) { if (!(x)) { printf("err %s:%d\n", __FILE__, __LINE__); g_err++; } }
