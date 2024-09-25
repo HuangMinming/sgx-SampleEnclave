@@ -59,9 +59,9 @@ int pairing_main()
 	Big ss,s,a,b;
 
 
-
+	int iss = 100;
     // pfc.random(ss);    // TA's super-secret 
-	ss = new Big(100);
+	ss = new Big(iss);
 
     printf("Mapping Server ID to point\n");
 	pfc.hash_and_map(Server,(char *)"Server");
@@ -104,8 +104,8 @@ int pairing_main()
 
 	sp=pfc.power(res,s);
 
-    printf("Alice  Key= %s\n", pfc.hash_to_aes_key(pfc.power(sp,a)));
-    printf("Server Key= %s\n",< pfc.hash_to_aes_key(pfc.power(ap,s)));
+    // printf("Alice  Key= %s\n", pfc.hash_to_aes_key(pfc.power(sp,a)));
+    // printf("Server Key= %s\n",< pfc.hash_to_aes_key(pfc.power(ap,s)));
 
     printf("Bob and Server Key Exchange\n");
 
@@ -129,8 +129,8 @@ int pairing_main()
 
     sp=pfc.power(res,s);
 
-    printf("Bob's  Key= %s\n", pfc.hash_to_aes_key(pfc.power(sp,b)));
-    printf("Server Key= %s\n", pfc.hash_to_aes_key(pfc.power(bp,s)));
+    // printf("Bob's  Key= %s\n", pfc.hash_to_aes_key(pfc.power(sp,b)));
+    // printf("Server Key= %s\n", pfc.hash_to_aes_key(pfc.power(bp,s)));
 
     return 0;
 
