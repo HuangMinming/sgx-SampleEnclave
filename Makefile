@@ -142,14 +142,12 @@ Enclave_Security_Link_Flags := -Wl,-z,relro,-z,now,-z,noexecstack
 # Do NOT move the libraries linked with `--start-group' and `--end-group' within `--whole-archive' and `--no-whole-archive' options.
 # Otherwise, you may get some undesirable errors.
 
-MCL_DIR = ./Enclave/mcl
-MCL_INC=$(MCL_DIR)/include
-MCL_LINK_LIBS = $(MCL_DIR)/lib/libmclbn384_256.a $(MCL_DIR)/lib/libmcl.a 
-MCL_BLS12_381_PAIRING_CFLAGS := -std=c++03 -O3 -g -fno-threadsafe-statics -fno-rtti \
-	-DXBYAK_NO_EXCEPTION -DMCL_SIZEOF_UNIT=8 -DMCL_MAX_BIT_SIZE=384 -DCYBOZU_DONT_USE_STRING \
-	-DCYBOZU_DONT_USE_EXCEPTION -DNDEBUG -DMCL_BINT_ASM=0 -DMCL_MSM=0 -I$(MCL_INC)
-MCL_Link_Flags := $(MCL_BLS12_381_PAIRING_CFLAGS) $(MCL_LINK_LIBS)
-Enclave_Link_Flags := $(MCL_Link_Flags) $(MITIGATION_LDFLAGS) $(Enclave_Security_Link_Flags) \
+MIRACL_DIR = ./Enclave/miracl
+MIRACL_INC=$(MIRACL_DIR)/include
+MIRACL_LINK_LIBS = $(MIRACL_INC)/lib/mircl.a
+MIRACL_CFLAGS := -m64 -O2 -DMR_NO_FILE_IO -DMR_NO_STANDARD_IO -I$(MIRACL_INC)
+MIRACL_Link_Flags := $(MIRACL_CFLAGS) $(MIRACL_LINK_LIBS)
+Enclave_Link_Flags := $(MIRACL_Link_Flags) $(MITIGATION_LDFLAGS) $(Enclave_Security_Link_Flags) \
     -Wl,--no-undefined -nostdlib -nodefaultlibs -nostartfiles -L$(SGX_TRUSTED_LIBRARY_PATH) \
 	-Wl,--whole-archive -l$(Trts_Library_Name) -Wl,--no-whole-archive \
 	-Wl,--start-group -lsgx_tstdc -lsgx_tcxx -l$(Crypto_Library_Name) -l$(Service_Library_Name) -Wl,--end-group \
