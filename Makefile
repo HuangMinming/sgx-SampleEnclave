@@ -144,7 +144,7 @@ Enclave_Security_Link_Flags := -Wl,-z,relro,-z,now,-z,noexecstack
 
 MIRACL_DIR = ./Enclave/miracl
 MIRACL_INC=$(MIRACL_DIR)/include
-MIRACL_LINK_LIBS = $(MIRACL_INC)/lib/mircl.a
+MIRACL_LINK_LIBS = $(MIRACL_DIR)/lib/mircl.a
 MIRACL_CFLAGS := -m64 -O2 -DMR_NO_FILE_IO -DMR_NO_STANDARD_IO -I$(MIRACL_INC)
 MIRACL_Link_Flags := $(MIRACL_CFLAGS) $(MIRACL_LINK_LIBS)
 Enclave_Link_Flags := $(MIRACL_Link_Flags) $(MITIGATION_LDFLAGS) $(Enclave_Security_Link_Flags) \
