@@ -56,12 +56,12 @@ int pairing_main()
 	G1 Alice,Bob,sA,sB;
     G2 B6,Server,sS;
 	GT res,sp,ap,bp;
-	Big ss,s,a,b;
+	Big s,a,b;
 
 
 	int iss = 100;
     // pfc.random(ss);    // TA's super-secret 
-	ss = new Big(iss);
+	Bis ss = new Big(iss);
 
     printf("Mapping Server ID to point\n");
 	pfc.hash_and_map(Server,(char *)"Server");
